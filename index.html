@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Album Picker Slider</title>
+
+  <!-- Slick CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"
+  />
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      text-align: center;
+      margin: 0;
+      padding: 60px 0;
+      overflow-x: hidden;
+      background: #111;
+      color: #fff;
+      font-family: Helvetica, sans-serif;
+    }
+
+    .slider-wrapper {
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .center-slider {
+      margin: 0 auto;
+    }
+
+    .slide {
+      padding: 20px 10px;
+    }
+
+    .slide-inner {
+      min-height: 360px;
+      display: grid;
+      place-items: center;
+      transition:
+        transform 300ms ease,
+        opacity 300ms ease;
+    }
+    .slide-inner img {
+      width: 100%;
+    }
+    .slide-inner p {
+      margin-top:1.2rem;
+    }
+    /* Dim and shrink inactive slides */
+    .slick-slide .slide-inner {
+      opacity: 0.45;
+      transform: scale(0.88);
+          display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    }
+
+    /* Highlight the centered slide */
+    .slick-center .slide-inner {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Give arrows a little breathing room */
+    .slick-prev {
+      left: 25px;
+      z-index: 2;
+    }
+
+    .slick-next {
+      right: 25px;
+      z-index: 2;
+    }
+
+    .slick-prev::before,
+    .slick-next::before {
+      font-size: 32px;
+    }
+
+    .slick-dots {
+      bottom: -35px;
+    }
+
+    .slick-dots li button::before {
+      color: #fff !important;
+    }
+    button {
+      border: none;
+      padding:0;
+    }
+    @media (max-width: 767px) {
+      body {
+        padding-top: 30px;
+      }
+
+      .slide-inner {
+        min-height: 280px;
+        font-size: 2rem;
+      }
+
+      .slick-prev {
+        left: 10px;
+      }
+
+      .slick-next {
+        right: 10px;
+      }
+
+    }
+
+    .image-button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+
+.slide-inner img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: 500px;
+  object-fit: cover;
+}
+
+.image-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  padding: 40px;
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.image-modal[hidden] {
+  display: none;
+}
+
+.modal-image {
+  display: block;
+  max-width: min(1200px, 95vw);
+  max-height: 90vh;
+  object-fit: contain;
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.5);
+}
+
+.modal-close {
+  position: fixed;
+  top: 20px;
+  right: 25px;
+  z-index: 10000;
+  padding: 5px 12px;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 48px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+  </style>
+</head>
+
+<body>
+  <h1>A.P.S. - Album Picker Slider</h1>
+  <main class="slider-wrapper">
+    <div class="center-slider">
+
+
+      <div class="slide">
+        <div class="slide-inner">
+                    <button
+              class="image-button"
+              type="button"
+              aria-label="Enlarge album cover"
+            >
+          <img src="images/demo_8.jpg">
+          </button>
+          <p>Weezer's Gonna Sue Us</p>
+        </div>
+      </div>
+
+
+      <div class="slide">
+        <div class="slide-inner">
+                    <button
+              class="image-button"
+              type="button"
+              aria-label="Enlarge album cover"
+            >
+          <img src="images/demo_4_TEAL.jpg">
+          </button>
+          <p>TEAL</p>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div class="slide-inner">
+                    <button
+              class="image-button"
+              type="button"
+              aria-label="Enlarge album cover"
+            >
+          <img src="images/demo_5_TEAL_HIDDEN.jpg">
+          </button>
+          <p>w/HIDDEN IMAGES</p>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div class="slide-inner">
+                    <button
+              class="image-button"
+              type="button"
+              aria-label="Enlarge album cover"
+            >
+          <img src="images/mockup_demo_6.PNG">
+        </button>
+          <p>See cute boys on back cover</p>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div class="slide-inner">
+          <button
+              class="image-button"
+              type="button"
+              aria-label="Enlarge album cover"
+            >
+            <img src="images/demo_4_BLACK.jpg">
+          </button>
+          <p>BLACK</p>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div class="slide-inner">
+                    <button
+              class="image-button"
+              type="button"
+              aria-label="Enlarge album cover"
+            >
+          <img src="images/demo_4_ORANGE.jpg">
+          </button>
+          <p>ORANGE</p>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div class="slide-inner">
+                    <button
+              class="image-button"
+              type="button"
+              aria-label="Enlarge album cover"
+            >
+          <img src="images/demo_4_YELLOW.jpg">
+          </button>
+          <p>YELLOW</p>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div class="slide-inner">
+                    <button
+              class="image-button"
+              type="button"
+              aria-label="Enlarge album cover"
+            >
+          <img src="images/demo_4_OXBLOOD.jpg">
+          </button>
+          <p>OXBLOOD</p>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div class="slide-inner">
+                    <button
+              class="image-button"
+              type="button"
+              aria-label="Enlarge album cover"
+            >
+          <img src="images/demo_4_MIDNIGHT.jpg">
+          </button>
+          <p>MIDNIGHT</p>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div class="slide-inner">
+                    <button
+              class="image-button"
+              type="button"
+              aria-label="Enlarge album cover"
+            >
+          <img src="images/useme.jpeg">
+          </button>
+          <p>USE ME</p>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div class="slide-inner">
+                    <button
+              class="image-button"
+              type="button"
+              aria-label="Enlarge album cover"
+            >
+          <img src="images/demo_4_MUSTARD.jpg">
+          </button>
+          <p>MUSTARD</p>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div class="slide-inner">
+                    <button
+              class="image-button"
+              type="button"
+              aria-label="Enlarge album cover"
+            >
+          <img src="images/demo_4_RED.jpg">
+          </button>
+          <p>RED</p>
+        </div>
+      </div>
+
+            <div class="slide">
+        <div class="slide-inner">
+                    <button
+              class="image-button"
+              type="button"
+              aria-label="Enlarge album cover"
+            >
+          <img src="images/demo_3.jpg">
+          </button>
+          <p>Yella - Bigger Logo</p>
+        </div>
+      </div>
+
+            <div class="slide">
+        <div class="slide-inner">
+                    <button
+              class="image-button"
+              type="button"
+              aria-label="Enlarge album cover"
+            >
+          <img src="images/demo_3_3.jpg">
+          </button>
+          <p>Yella - Smaller Logo</p>
+        </div>
+      </div>
+
+            <div class="slide">
+        <div class="slide-inner">
+                    <button
+              class="image-button"
+              type="button"
+              aria-label="Enlarge album cover"
+            >
+          <img src="images/demo_3_2.jpg">
+          </button>
+          <p>Blerk on Blerk</p>
+        </div>
+      </div>
+
+            <div class="slide">
+        <div class="slide-inner">
+                    <button
+              class="image-button"
+              type="button"
+              aria-label="Enlarge album cover"
+            >
+          <img src="images/demo_3_4.jpg">
+          </button>
+          <p>Blerk - Smaller logo</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <div
+    class="image-modal"
+    id="imageModal"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Enlarged image"
+    hidden
+  >
+    <button
+      class="modal-close"
+      type="button"
+      aria-label="Close enlarged image"
+    >
+      &times;
+    </button>
+
+    <img class="modal-image" src="" alt="" />
+  </div>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <!-- Slick JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+  <script>
+    $(function () {
+      $(".center-slider").slick({
+        centerMode: true,
+        centerPadding: "120px",
+        slidesToShow: 3,
+        slidesToScroll: 1,
+
+        infinite: true,
+        arrows: true,
+        dots: true,
+        speed: 500,
+        focusOnSelect: true,
+
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 3,
+              centerPadding: "60px"
+            }
+          },
+          {
+            breakpoint: 768,
+            settings: {
+              slidesToShow: 1,
+              centerPadding: "70px"
+            }
+          },
+          {
+            breakpoint: 480,
+            settings: {
+              slidesToShow: 1,
+              centerPadding: "35px"
+            }
+          }
+        ]
+      });
+    });
+
+    const modal = document.querySelector("#imageModal");
+const modalImage = modal.querySelector(".modal-image");
+const closeButton = modal.querySelector(".modal-close");
+
+function openModal(image) {
+  modalImage.src = image.currentSrc || image.src;
+  modalImage.alt = image.alt;
+
+  modal.hidden = false;
+  document.body.classList.add("modal-open");
+
+  closeButton.focus();
+}
+
+function closeModal() {
+  modal.hidden = true;
+  modalImage.src = "";
+
+  document.body.classList.remove("modal-open");
+}
+
+document.addEventListener("click", function (event) {
+  const imageButton = event.target.closest(".image-button");
+
+  if (imageButton) {
+    const image = imageButton.querySelector("img");
+
+    if (image) {
+      openModal(image);
+    }
+
+    return;
+  }
+
+  if (event.target === modal || event.target === closeButton) {
+    closeModal();
+  }
+});
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape" && !modal.hidden) {
+    closeModal();
+  }
+});
+  </script>
+</body>
+</html>
